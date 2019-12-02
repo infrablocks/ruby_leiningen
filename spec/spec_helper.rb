@@ -1,5 +1,5 @@
 require 'bundler/setup'
-require 'ruby_fly'
+require 'ruby_leiningen'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
