@@ -1,21 +1,15 @@
 require 'lino'
+
 require_relative 'base'
+require_relative 'mixins/profile'
 
 module RubyLeiningen
   module Commands
     class Deps < Base
-      def for_profile(profile)
-        @profile = profile
-        self
-      end
+      include Mixins::Profile
 
       def configure_command(builder, opts)
-        profile = opts[:profile] || @profile
-        if profile
-          builder = builder
-              .with_subcommand('with-profile')
-              .with_subcommand(profile)
-        end
+        builder = super(builder, opts)
         builder.with_subcommand('deps')
       end
     end
