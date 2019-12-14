@@ -8,6 +8,6 @@ describe RubyLeiningen::Commands::Version do
         receive(:spawn)
             .with('lein version', any_args))
 
-    command.execute()
+    command.execute
   end
 end
