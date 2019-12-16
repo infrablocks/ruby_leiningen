@@ -25,6 +25,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.4'
 
   spec.add_dependency 'lino', '~> 1.1'
+  spec.add_dependency 'activesupport', '~> 6.0', '>= 6.0.2'
 
   spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 13.0'

@@ -1,3 +1,6 @@
+require 'active_support'
+require 'active_support/core_ext/string/inflections'
+
 require_relative 'commands/check'
 require_relative 'commands/clean'
 require_relative 'commands/deps'
@@ -7,5 +10,48 @@ require_relative 'commands/version'
 
 module RubyLeiningen
   module Commands
+    class << self
+      def define_custom_command(name, options = {}, &config_block)
+        klass_name = name.classify
+        config = (config_block || lambda { |conf| conf }).call(Config.new)
+
+        klass = Class.new(Base) do
+          unless options[:include_profile_support] == false
+            include Mixins::Profile
+          end
+
+          define_method "configure_command" do |builder, opts|
+            builder = super(builder, opts)
+            builder = builder.with_subcommand(name) do |sub|
+              config.subcommand_block.call(sub, opts)
+            end
+            config.command_block.call(builder, opts)
+          end
+        end
+
+        const_set(klass_name, klass)
+      end
+    end
+
+    private
+
+    class Config
+      attr_accessor :command_block, :subcommand_block
+
+      def initialize
+        self.command_block = lambda { |com, _| com }
+        self.subcommand_block = lambda { |sub, _| sub }
+      end
+
+      def on_command_builder(&block)
+        self.command_block = block
+        self
+      end
+
+      def on_subcommand_builder(&block)
+        self.subcommand_block = block
+        self
+      end
+    end
   end
 end
