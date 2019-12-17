@@ -57,9 +57,8 @@ describe RubyLeiningen::Commands do
     end
 
     it 'allows command to be further configured via a block' do
-      RubyLeiningen::Commands
-          .define_custom_command('custom') do |config|
-        config.on_command_builder do |command, opts|
+      RubyLeiningen::Commands.define_custom_command('custom') do |config, opts|
+        config.on_command_builder do |command|
           command = command.with_argument("thing")
           command = command.with_flag("--some-flag") if opts[:some_flag]
           command
@@ -76,9 +75,8 @@ describe RubyLeiningen::Commands do
     end
 
     it 'allows subcommand to be further configured via a block' do
-      RubyLeiningen::Commands
-          .define_custom_command('custom') do |config|
-        config.on_subcommand_builder do |subcommand, opts|
+      RubyLeiningen::Commands.define_custom_command('custom') do |config, opts|
+        config.on_subcommand_builder do |subcommand|
           subcommand = subcommand
               .with_flag("--some-flag") if opts[:some_flag]
           subcommand = subcommand

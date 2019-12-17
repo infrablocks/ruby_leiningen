@@ -13,7 +13,6 @@ module RubyLeiningen
     class << self
       def define_custom_command(name, options = {}, &config_block)
         klass_name = name.classify
-        config = (config_block || lambda { |conf| conf }).call(Config.new)
 
         klass = Class.new(Base) do
           unless options[:include_profile_support] == false
@@ -21,11 +20,14 @@ module RubyLeiningen
           end
 
           define_method "configure_command" do |builder, opts|
+            config = (config_block || lambda { |conf, _| conf })
+                .call(Config.new, opts)
+
             builder = super(builder, opts)
             builder = builder.with_subcommand(name) do |sub|
-              config.subcommand_block.call(sub, opts)
+              config.subcommand_block.call(sub)
             end
-            config.command_block.call(builder, opts)
+            config.command_block.call(builder)
           end
         end
 
@@ -39,8 +41,8 @@ module RubyLeiningen
       attr_accessor :command_block, :subcommand_block
 
       def initialize
-        self.command_block = lambda { |com, _| com }
-        self.subcommand_block = lambda { |sub, _| sub }
+        self.command_block = lambda { |command| command }
+        self.subcommand_block = lambda { |sub| sub }
       end
 
       def on_command_builder(&block)
