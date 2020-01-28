@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby_leiningen (0.2.0.pre.1)
+    ruby_leiningen (0.2.0.pre.2)
       activesupport (~> 6.0, >= 6.0.2)
       lino (~> 1.1)
 
@@ -56,4 +56,4 @@ DEPENDENCIES
   ruby_leiningen!
 
 BUNDLED WITH
-   2.1.1
+   2.1.4
