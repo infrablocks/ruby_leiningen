@@ -32,6 +32,12 @@ module RubyLeiningen
         end
 
         const_set(klass_name, klass)
+
+        unless options[:skip_singleton_method]
+          RubyLeiningen.define_singleton_method name do |opts = {}|
+            klass.new.execute(opts)
+          end
+        end
       end
     end
 

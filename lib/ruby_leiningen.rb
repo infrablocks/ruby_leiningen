@@ -19,6 +19,26 @@ module RubyLeiningen
     def version
       Commands::Version.new.execute
     end
+
+    def check(opts = {})
+      Commands::Check.new.execute(opts)
+    end
+
+    def clean(opts = {})
+      Commands::Clean.new.execute(opts)
+    end
+
+    def deps(opts = {})
+      Commands::Deps.new.execute(opts)
+    end
+
+    def run(opts = {})
+      Commands::Run.new.execute(opts)
+    end
+
+    def uberjar(opts = {})
+      Commands::Uberjar.new.execute(opts)
+    end
   end
   extend ClassMethods
 

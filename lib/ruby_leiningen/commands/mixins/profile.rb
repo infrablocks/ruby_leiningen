@@ -2,7 +2,7 @@ module RubyLeiningen
   module Commands
     module Mixins
       module Profile
-        def initialize(opts)
+        def initialize(opts={})
           super(opts)
           @profile = opts[:profile]
         end
