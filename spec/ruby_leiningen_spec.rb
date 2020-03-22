@@ -86,6 +86,25 @@ RSpec.describe RubyLeiningen do
         main_namespace: main_namespace)
   end
 
+  it 'exposes a release helper function' do
+    profile = 'prerelease'
+    level = ':patch'
+
+    release_command = double('release command')
+
+    expect(RubyLeiningen::Commands::Release)
+        .to(receive(:new).and_return(release_command))
+    expect(release_command)
+        .to(receive(:execute)
+            .with(
+                profile: profile,
+                level: level))
+
+    RubyLeiningen.release(
+        profile: profile,
+        level: level)
+  end
+
   it 'exposes a bikeshed helper function when bikeshed plugin required' do
     profile = 'test'
     maximum_line_length = 80

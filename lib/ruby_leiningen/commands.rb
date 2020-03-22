@@ -6,6 +6,7 @@ require_relative 'commands/clean'
 require_relative 'commands/deps'
 require_relative 'commands/run'
 require_relative 'commands/uberjar'
+require_relative 'commands/release'
 require_relative 'commands/version'
 
 module RubyLeiningen

@@ -42,6 +42,10 @@ module RubyLeiningen
     def uberjar(opts = {})
       Commands::Uberjar.new.execute(opts)
     end
+
+    def release(opts = {})
+      Commands::Release.new.execute(opts)
+    end
   end
   extend ClassMethods
 
