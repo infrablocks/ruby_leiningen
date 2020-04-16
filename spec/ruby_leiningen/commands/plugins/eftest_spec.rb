@@ -59,6 +59,20 @@ describe RubyLeiningen::Commands::Eftest do
         test_selectors: [:unit, :integration])
   end
 
+  it 'allows class based test selectors' do
+    command = RubyLeiningen::Commands::Eftest.new(binary: 'lein')
+
+    expect(Open4).to(
+        receive(:spawn)
+            .with(
+                'lein eftest mylib.core mylib.helpers some.namespace/test-something :integration',
+                any_args))
+
+    command.execute(
+        namespaces: ["mylib.core", "mylib.helpers"],
+        test_selectors: ["some.namespace/test-something", :integration])
+  end
+
   it 'allows the only test selector' do
     command = RubyLeiningen::Commands::Eftest.new(binary: 'lein')
 
