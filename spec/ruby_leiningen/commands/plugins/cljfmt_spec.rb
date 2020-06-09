@@ -1,8 +1,14 @@
 require 'spec_helper'
 
+require_relative '../../../support/shared_examples/profile_support'
+require_relative '../../../support/shared_examples/environment_support'
+
 require_relative '../../../../lib/ruby_leiningen/commands/plugins/cljfmt'
 
 describe RubyLeiningen::Commands::Cljfmt do
+  it_behaves_like "a command with profile support", 'cljfmt', ['check']
+  it_behaves_like "a command with environment support", 'cljfmt', ['check']
+
   it 'calls the lein cljfmt subcommand in check mode by default' do
     command = RubyLeiningen::Commands::Cljfmt.new(binary: 'lein')
 

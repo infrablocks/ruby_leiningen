@@ -19,6 +19,9 @@ module RubyLeiningen
           unless options[:include_profile_support] == false
             include Mixins::Profile
           end
+          unless options[:include_environment_support] == false
+            include Mixins::Environment
+          end
 
           define_method "configure_command" do |builder, opts|
             config = (config_block || lambda { |conf, _| conf })

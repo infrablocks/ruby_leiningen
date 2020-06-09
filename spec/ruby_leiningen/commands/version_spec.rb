@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+require_relative '../../support/shared_examples/environment_support'
+
 describe RubyLeiningen::Commands::Version do
   it 'calls the lein version subcommand' do
     command = RubyLeiningen::Commands::Version.new(binary: 'lein')
@@ -10,4 +12,6 @@ describe RubyLeiningen::Commands::Version do
 
     command.execute
   end
+
+  it_behaves_like "a command with environment support", 'version'
 end

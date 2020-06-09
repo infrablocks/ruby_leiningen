@@ -1,8 +1,14 @@
 require 'spec_helper'
 
+require_relative '../../../support/shared_examples/profile_support'
+require_relative '../../../support/shared_examples/environment_support'
+
 require_relative '../../../../lib/ruby_leiningen/commands/plugins/eftest'
 
 describe RubyLeiningen::Commands::Eftest do
+  it_behaves_like "a command with profile support", 'eftest', [':all']
+  it_behaves_like "a command with environment support", 'eftest', [':all']
+
   it 'calls the lein eftest subcommand' do
     command = RubyLeiningen::Commands::Eftest.new(binary: 'lein')
 

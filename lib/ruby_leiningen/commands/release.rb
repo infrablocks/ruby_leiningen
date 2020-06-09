@@ -2,11 +2,13 @@ require 'lino'
 
 require_relative 'base'
 require_relative 'mixins/profile'
+require_relative 'mixins/environment'
 
 module RubyLeiningen
   module Commands
     class Release < Base
       include Mixins::Profile
+      include Mixins::Environment
 
       def configure_command(builder, opts)
         builder = super(builder, opts)

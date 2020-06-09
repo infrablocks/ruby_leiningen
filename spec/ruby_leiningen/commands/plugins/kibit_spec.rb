@@ -1,8 +1,14 @@
 require 'spec_helper'
 
+require_relative '../../../support/shared_examples/profile_support'
+require_relative '../../../support/shared_examples/environment_support'
+
 require_relative '../../../../lib/ruby_leiningen/commands/plugins/kibit'
 
 describe RubyLeiningen::Commands::Kibit do
+  it_behaves_like "a command with profile support", 'kibit'
+  it_behaves_like "a command with environment support", 'kibit'
+
   it 'calls the lein kibit subcommand' do
     command = RubyLeiningen::Commands::Kibit.new(binary: 'lein')
 

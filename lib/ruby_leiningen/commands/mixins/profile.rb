@@ -13,6 +13,7 @@ module RubyLeiningen
         end
 
         def configure_command(builder, opts)
+          builder = super(builder, opts)
           profile = opts[:profile] || @profile
           if profile
             builder = builder

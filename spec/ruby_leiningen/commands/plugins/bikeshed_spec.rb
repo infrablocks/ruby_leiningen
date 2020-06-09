@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+require_relative '../../../support/shared_examples/profile_support'
+require_relative '../../../support/shared_examples/environment_support'
+
 require_relative '../../../../lib/ruby_leiningen/commands/plugins/bikeshed'
 
 describe RubyLeiningen::Commands::Bikeshed do
@@ -12,6 +15,9 @@ describe RubyLeiningen::Commands::Bikeshed do
 
     command.execute
   end
+
+  it_behaves_like "a command with profile support", 'bikeshed'
+  it_behaves_like "a command with environment support", 'bikeshed'
 
   it 'passes the supplied show help flag' do
     command = RubyLeiningen::Commands::Bikeshed.new(binary: 'lein')
