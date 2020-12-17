@@ -73,6 +73,10 @@ end
 
 def bump_version_for(version_type)
   require 'pp'
+  puts "BEFORE ============================"
+  pp ENV
+  ENV.delete_if { |name, _| name =~ /BUNDLER/ }
+  puts "AFTER  ============================"
   pp ENV
   sh "bundle exec gem bump --version #{version_type} " +
       "&& bundle install " +
