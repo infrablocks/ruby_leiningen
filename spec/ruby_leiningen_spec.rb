@@ -2,6 +2,7 @@ require 'spec_helper'
 
 require_relative '../lib/ruby_leiningen/commands/plugins/bikeshed'
 require_relative '../lib/ruby_leiningen/commands/plugins/cljfmt'
+require_relative '../lib/ruby_leiningen/commands/plugins/cljstyle'
 require_relative '../lib/ruby_leiningen/commands/plugins/eastwood'
 require_relative '../lib/ruby_leiningen/commands/plugins/eftest'
 require_relative '../lib/ruby_leiningen/commands/plugins/kibit'
@@ -139,6 +140,25 @@ RSpec.describe RubyLeiningen do
                 mode: mode))
 
     RubyLeiningen.cljfmt(
+        profile: profile,
+        mode: mode)
+  end
+
+  it 'exposes a cljstyle helper function when cljstyle plugin required' do
+    profile = 'test'
+    mode = :fix
+
+    cljstyle_command = double('cljstyle command')
+
+    expect(RubyLeiningen::Commands::Cljstyle)
+        .to(receive(:new).and_return(cljstyle_command))
+    expect(cljstyle_command)
+        .to(receive(:execute)
+            .with(
+                profile: profile,
+                mode: mode))
+
+    RubyLeiningen.cljstyle(
         profile: profile,
         mode: mode)
   end
