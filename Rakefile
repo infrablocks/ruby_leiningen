@@ -72,6 +72,8 @@ task :release do
 end
 
 def bump_version_for(version_type)
+  require 'pp'
+  pp ENV
   sh "bundle exec gem bump --version #{version_type} " +
       "&& bundle install " +
       "&& export LAST_MESSAGE=\"$(git log -1 --pretty=%B)\" " +
