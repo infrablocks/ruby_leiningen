@@ -68,12 +68,11 @@ end
 
 desc "Release gem"
 task :release do
-  sh "gem release --tag --push"
+  sh "bundle exec gem release --tag --push"
 end
 
 def bump_version_for(version_type)
-  sh "git checkout -- . " +
-      "&& gem bump --version #{version_type} " +
+  sh "bundle exec gem bump --version #{version_type} " +
       "&& bundle install " +
       "&& export LAST_MESSAGE=\"$(git log -1 --pretty=%B)\" " +
       "&& git commit -a --amend -m \"${LAST_MESSAGE} [ci skip]\""
