@@ -6,8 +6,8 @@ require 'ruby_leiningen/version'
 Gem::Specification.new do |spec|
   spec.name = 'ruby_leiningen'
   spec.version = RubyLeiningen::VERSION
-  spec.authors = ['Toby Clemson']
-  spec.email = ['tobyclemson@gmail.com']
+  spec.authors = ['InfraBlocks Maintainers']
+  spec.email = ['maintainers@infrablocks.io']
 
   spec.summary = 'A simple Ruby wrapper for invoking leiningen commands.'
   spec.description = 'Wraps the leiningen CLI so that leiningen can be ' +
