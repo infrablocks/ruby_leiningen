@@ -177,6 +177,20 @@ RSpec.describe RubyLeiningen do
     RubyLeiningen.eastwood(profile: profile)
   end
 
+  it 'exposes a kondo helper function when kondo plugin required' do
+    profile = 'test'
+
+    kondo_command = double('kondo command')
+
+    expect(RubyLeiningen::Commands::Kondo)
+        .to(receive(:new).and_return(kondo_command))
+    expect(kondo_command)
+        .to(receive(:execute)
+                .with(profile: profile))
+
+    RubyLeiningen.kondo(profile: profile)
+  end
+
   it 'exposes an eftest helper function when eftest plugin required' do
     profile = 'test'
     namespaces = ["first.namespace", "second.namespace"]
