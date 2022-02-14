@@ -2,13 +2,13 @@ PATH
   remote: .
   specs:
     ruby_leiningen (0.24.0.pre.3)
-      activesupport (~> 6.0, >= 6.0.2)
+      activesupport (>= 6.0.2, < 8)
       lino (>= 1.5)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.4.4)
+    activesupport (6.1.4.6)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
