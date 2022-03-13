@@ -1,3 +1,3 @@
 module RubyLeiningen
-  VERSION = '0.24.0.pre.3'
+  VERSION = '0.24.0.pre.4'
 end
