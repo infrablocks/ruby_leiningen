@@ -3,24 +3,23 @@ PATH
   specs:
     ruby_leiningen (0.24.0.pre.3)
       activesupport (>= 6.0.2, < 8)
-      lino (>= 1.5)
+      lino (~> 3.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.5)
+    activesupport (7.0.2.3)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     colored2 (3.1.2)
     concurrent-ruby (1.1.9)
     diff-lcs (1.5.0)
-    excon (0.82.0)
-    faraday (1.9.3)
+    excon (0.92.0)
+    faraday (1.10.0)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
       faraday-excon (~> 1.1)
@@ -101,7 +100,6 @@ GEM
     sshkey (2.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
-    zeitwerk (2.5.4)
 
 PLATFORMS
   ruby
@@ -109,15 +107,15 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bundler (~> 2.0)
-  gem-release (~> 2.0)
-  rake (~> 13.0)
-  rake_circle_ci (~> 0.9)
-  rake_github (~> 0.5)
-  rake_gpg (~> 0.12)
-  rake_ssh (~> 0.4)
-  rspec (~> 3.9)
+  bundler
+  gem-release
+  rake
+  rake_circle_ci
+  rake_github
+  rake_gpg
+  rake_ssh
+  rspec
   ruby_leiningen!
 
 BUNDLED WITH
-   2.3.7
+   2.3.9
