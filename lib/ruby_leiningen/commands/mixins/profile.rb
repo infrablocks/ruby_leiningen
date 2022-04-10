@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module RubyLeiningen
   module Commands
     module Mixins
       module Profile
-        def initialize(opts={})
+        def initialize(opts = {})
           super(opts)
           @profile = opts[:profile]
         end
@@ -17,8 +19,8 @@ module RubyLeiningen
           profile = opts[:profile] || @profile
           if profile
             builder = builder
-                .with_subcommand('with-profile')
-                .with_subcommand(profile)
+                      .with_subcommand('with-profile')
+                      .with_subcommand(profile)
           end
           builder
         end

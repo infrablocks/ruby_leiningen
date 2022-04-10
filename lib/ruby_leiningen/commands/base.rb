@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'lino'
 
 module RubyLeiningen
@@ -14,40 +16,33 @@ module RubyLeiningen
       end
 
       def stdout
-        STDOUT
+        $stdout
       end
 
       def stderr
-        STDERR
+        $stderr
       end
 
       def execute(opts = {})
-        builder = instantiate_builder
-
         do_before(opts)
-        configure_command(builder, opts)
-            .build
-            .execute(
-                stdin: stdin,
-                stdout: stdout,
-                stderr: stderr)
+        configure_command(instantiate_builder, opts)
+          .build
+          .execute(stdin: stdin, stdout: stdout, stderr: stderr)
         do_after(opts)
       end
 
       def instantiate_builder
         Lino::CommandLineBuilder
-            .for_command(binary)
+          .for_command(binary)
       end
 
-      def do_before(opts)
-      end
+      def do_before(opts); end
 
-      def configure_command(builder, opts)
+      def configure_command(builder, _opts)
         builder
       end
 
-      def do_after(opts)
-      end
+      def do_after(opts); end
     end
   end
 end

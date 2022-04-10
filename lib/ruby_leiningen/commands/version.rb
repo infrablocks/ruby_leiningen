@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'lino'
 
 require_relative 'base'
@@ -12,7 +14,7 @@ module RubyLeiningen
         @version_string
       end
 
-      def do_before(opts)
+      def do_before(_opts)
         @version_string = StringIO.new
       end
 
@@ -21,7 +23,7 @@ module RubyLeiningen
         builder.with_argument('version')
       end
 
-      def do_after(opts)
+      def do_after(_opts)
         @version_string.string.gsub(/\n/, '')
       end
     end

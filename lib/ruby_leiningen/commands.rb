@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 require 'active_support'
 require 'active_support/core_ext/string/inflections'
 
+require_relative 'commands/helpers'
 require_relative 'commands/check'
 require_relative 'commands/clean'
 require_relative 'commands/deps'
@@ -14,19 +17,28 @@ module RubyLeiningen
     class << self
       def define_custom_command(name, options = {}, &config_block)
         klass_name = name.classify
+        klass = define_command_class(name, options, &config_block)
+        const_set(klass_name, klass)
 
-        klass = Class.new(Base) do
+        return if options[:skip_singleton_method]
+
+        RubyLeiningen.define_singleton_method name do |opts = {}|
+          klass.new.execute(opts)
+        end
+      end
+
+      # rubocop:disable Metrics/MethodLength
+      def define_command_class(name, options, &config_block)
+        Class.new(Base) do
           unless options[:include_profile_support] == false
             include Mixins::Profile
           end
           unless options[:include_environment_support] == false
             include Mixins::Environment
           end
-
-          define_method "configure_command" do |builder, opts|
-            config = (config_block || lambda { |conf, _| conf })
-                .call(Config.new, opts)
-
+          define_method 'configure_command' do |builder, opts|
+            config = (config_block || ->(conf, _) { conf })
+                     .call(Config.new, opts)
             builder = super(builder, opts)
             builder = builder.with_subcommand(name) do |sub|
               config.subcommand_block.call(sub)
@@ -34,25 +46,16 @@ module RubyLeiningen
             config.command_block.call(builder)
           end
         end
-
-        const_set(klass_name, klass)
-
-        unless options[:skip_singleton_method]
-          RubyLeiningen.define_singleton_method name do |opts = {}|
-            klass.new.execute(opts)
-          end
-        end
       end
+      # rubocop:enable Metrics/MethodLength
     end
-
-    private
 
     class Config
       attr_accessor :command_block, :subcommand_block
 
       def initialize
-        self.command_block = lambda { |command| command }
-        self.subcommand_block = lambda { |sub| sub }
+        self.command_block = ->(command) { command }
+        self.subcommand_block = ->(sub) { sub }
       end
 
       def on_command_builder(&block)

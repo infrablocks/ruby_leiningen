@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative '../../commands'
 
-RubyLeiningen::Commands.define_custom_command("eftest") do |config, opts|
+RubyLeiningen::Commands.define_custom_command('eftest') do |config, opts|
   only = opts[:only] ? [":only #{opts[:only]}"] : []
   specific = (opts[:test_selectors] || [])
-     .map { |m| m.is_a?(Symbol) ? ":#{m}" : "#{m}" }
-  all = [":all"]
+             .map { |m| m.is_a?(Symbol) ? ":#{m}" : m.to_s }
+  all = [':all']
 
   test_selectors =
     if only.any?

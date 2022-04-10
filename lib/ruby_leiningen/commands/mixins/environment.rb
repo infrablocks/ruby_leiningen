@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module RubyLeiningen
   module Commands
     module Mixins
       module Environment
-        def initialize(opts={})
+        def initialize(opts = {})
           super(opts)
           @environment = opts[:environment]
         end
@@ -17,7 +19,7 @@ module RubyLeiningen
           environment = opts[:environment] || @environment
           if environment
             builder = environment.to_a
-                .inject(builder) do |b, environment_variable|
+                                 .inject(builder) do |b, environment_variable|
               b.with_environment_variable(*environment_variable)
             end
           end

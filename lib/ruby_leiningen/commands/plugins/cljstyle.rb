@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require_relative '../../commands'
 
-RubyLeiningen::Commands.define_custom_command("cljstyle") do |config, opts|
+RubyLeiningen::Commands.define_custom_command('cljstyle') do |config, opts|
   mode = opts[:mode] || :check
   paths = opts[:paths] || []
 
