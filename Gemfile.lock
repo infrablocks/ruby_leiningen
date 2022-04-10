@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby_leiningen (0.24.0.pre.6)
+    ruby_leiningen (0.24.0.pre.7)
       activesupport (>= 6.0.2, < 8)
       lino (~> 3.0)
 
@@ -153,4 +153,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   2.3.9
+   2.3.11
