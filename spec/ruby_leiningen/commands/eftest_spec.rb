@@ -90,7 +90,7 @@ describe RubyLeiningen::Commands::Eftest do
     expect(Open4)
       .to(have_received(:spawn)
             .with(
-              'lein eftest mylib.core mylib.helpers '\
+              'lein eftest mylib.core mylib.helpers ' \
               'some.namespace/test-something :integration',
               any_args
             ))
