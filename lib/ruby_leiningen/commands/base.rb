@@ -7,8 +7,8 @@ module RubyLeiningen
     class Base
       attr_reader :binary
 
-      def initialize(binary: nil)
-        @binary = binary || RubyLeiningen.configuration.binary
+      def initialize(opts = {})
+        @binary = opts[:binary] || RubyLeiningen.configuration.binary
       end
 
       def stdin
