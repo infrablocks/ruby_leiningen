@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module RubyLeiningen
-  VERSION = '0.26.0.pre.2'
+  VERSION = '0.27.0'
 end
