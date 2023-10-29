@@ -24,7 +24,7 @@ module RubyLeiningen
       end
 
       def do_after(_opts)
-        @version_string.string.gsub(/\n/, '')
+        @version_string.string.gsub("\n", '')
       end
     end
   end
