@@ -25,13 +25,13 @@ RSpec.describe RubyLeiningen do
             .and_return(check_command))
     allow(check_command).to(receive(:execute))
 
-    described_class.check(profile: profile)
+    described_class.check(profile:)
 
     expect(RubyLeiningen::Commands::Check)
       .to(have_received(:new))
     expect(check_command)
       .to(have_received(:execute)
-            .with(profile: profile))
+            .with(profile:))
   end
   # rubocop:enable RSpec/MultipleExpectations
 
@@ -46,13 +46,13 @@ RSpec.describe RubyLeiningen do
             .and_return(clean_command))
     allow(clean_command).to(receive(:execute))
 
-    described_class.clean(profile: profile)
+    described_class.clean(profile:)
 
     expect(RubyLeiningen::Commands::Clean)
       .to(have_received(:new))
     expect(clean_command)
       .to(have_received(:execute)
-            .with(profile: profile))
+            .with(profile:))
   end
   # rubocop:enable RSpec/MultipleExpectations
 
@@ -68,13 +68,13 @@ RSpec.describe RubyLeiningen do
     allow(deps_command)
       .to(receive(:execute))
 
-    described_class.deps(profile: profile)
+    described_class.deps(profile:)
 
     expect(RubyLeiningen::Commands::Deps)
       .to(have_received(:new))
     expect(deps_command)
       .to(have_received(:execute)
-            .with(profile: profile))
+            .with(profile:))
   end
   # rubocop:enable RSpec/MultipleExpectations
 
@@ -89,15 +89,15 @@ RSpec.describe RubyLeiningen do
       .to(receive(:new).and_return(run_command))
     allow(run_command).to(receive(:execute))
 
-    described_class.run(profile: profile, main_function: main_function)
+    described_class.run(profile:, main_function:)
 
     expect(RubyLeiningen::Commands::Run)
       .to(have_received(:new))
     expect(run_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              main_function: main_function
+              profile:,
+              main_function:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -114,8 +114,8 @@ RSpec.describe RubyLeiningen do
     allow(uberjar_command).to(receive(:execute))
 
     described_class.uberjar(
-      profile: profile,
-      main_namespace: main_namespace
+      profile:,
+      main_namespace:
     )
 
     expect(RubyLeiningen::Commands::Uberjar)
@@ -123,8 +123,8 @@ RSpec.describe RubyLeiningen do
     expect(uberjar_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              main_namespace: main_namespace
+              profile:,
+              main_namespace:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -141,8 +141,8 @@ RSpec.describe RubyLeiningen do
     allow(release_command).to(receive(:execute))
 
     described_class.release(
-      profile: profile,
-      level: level
+      profile:,
+      level:
     )
 
     expect(RubyLeiningen::Commands::Release)
@@ -150,8 +150,8 @@ RSpec.describe RubyLeiningen do
     expect(release_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              level: level
+              profile:,
+              level:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -169,8 +169,8 @@ RSpec.describe RubyLeiningen do
       .to(receive(:execute))
 
     described_class.bikeshed(
-      profile: profile,
-      maximum_line_length: maximum_line_length
+      profile:,
+      maximum_line_length:
     )
 
     expect(RubyLeiningen::Commands::Bikeshed)
@@ -178,8 +178,8 @@ RSpec.describe RubyLeiningen do
     expect(bikeshed_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              maximum_line_length: maximum_line_length
+              profile:,
+              maximum_line_length:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -196,8 +196,8 @@ RSpec.describe RubyLeiningen do
     allow(cljfmt_command).to(receive(:execute))
 
     described_class.cljfmt(
-      profile: profile,
-      mode: mode
+      profile:,
+      mode:
     )
 
     expect(RubyLeiningen::Commands::Cljfmt)
@@ -205,8 +205,8 @@ RSpec.describe RubyLeiningen do
     expect(cljfmt_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              mode: mode
+              profile:,
+              mode:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -223,8 +223,8 @@ RSpec.describe RubyLeiningen do
     allow(cljstyle_command).to(receive(:execute))
 
     described_class.cljstyle(
-      profile: profile,
-      mode: mode
+      profile:,
+      mode:
     )
 
     expect(RubyLeiningen::Commands::Cljstyle)
@@ -232,8 +232,8 @@ RSpec.describe RubyLeiningen do
     expect(cljstyle_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              mode: mode
+              profile:,
+              mode:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -248,13 +248,13 @@ RSpec.describe RubyLeiningen do
       .to(receive(:new).and_return(eastwood_command))
     allow(eastwood_command).to(receive(:execute))
 
-    described_class.eastwood(profile: profile)
+    described_class.eastwood(profile:)
 
     expect(RubyLeiningen::Commands::Eastwood)
       .to(have_received(:new))
     expect(eastwood_command)
       .to(have_received(:execute)
-            .with(profile: profile))
+            .with(profile:))
   end
   # rubocop:enable RSpec/MultipleExpectations
 
@@ -270,8 +270,8 @@ RSpec.describe RubyLeiningen do
     allow(eftest_command).to(receive(:execute))
 
     described_class.eftest(
-      profile: profile,
-      namespaces: namespaces
+      profile:,
+      namespaces:
     )
 
     expect(RubyLeiningen::Commands::Eftest)
@@ -279,8 +279,8 @@ RSpec.describe RubyLeiningen do
     expect(eftest_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              namespaces: namespaces
+              profile:,
+              namespaces:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations
@@ -298,8 +298,8 @@ RSpec.describe RubyLeiningen do
       .to(receive(:execute))
 
     described_class.kibit(
-      profile: profile,
-      replace: replace
+      profile:,
+      replace:
     )
 
     expect(RubyLeiningen::Commands::Kibit)
@@ -307,8 +307,8 @@ RSpec.describe RubyLeiningen do
     expect(kibit_command)
       .to(have_received(:execute)
             .with(
-              profile: profile,
-              replace: replace
+              profile:,
+              replace:
             ))
   end
   # rubocop:enable RSpec/MultipleExpectations

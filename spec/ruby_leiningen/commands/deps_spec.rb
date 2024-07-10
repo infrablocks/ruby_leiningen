@@ -3,16 +3,25 @@
 require 'spec_helper'
 
 describe RubyLeiningen::Commands::Deps do
+  let(:executor) { Lino::Executors::Mock.new }
+
+  before do
+    Lino.configure do |config|
+      config.executor = executor
+    end
+  end
+
+  after do
+    Lino.reset!
+  end
+
   it 'calls the lein deps subcommand' do
     command = described_class.new(binary: 'lein')
 
-    allow(Open4).to(receive(:spawn))
-
     command.execute
 
-    expect(Open4)
-      .to(have_received(:spawn)
-        .with('lein deps', any_args))
+    expect(executor.executions.first.command_line.string)
+      .to(eq('lein deps'))
   end
 
   it_behaves_like('a command with profile support', 'deps')

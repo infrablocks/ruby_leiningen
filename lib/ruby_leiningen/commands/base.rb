@@ -12,7 +12,7 @@ module RubyLeiningen
       end
 
       def stdin
-        ''
+        nil
       end
 
       def stdout
@@ -27,7 +27,7 @@ module RubyLeiningen
         do_before(opts)
         configure_command(instantiate_builder, opts)
           .build
-          .execute(stdin: stdin, stdout: stdout, stderr: stderr)
+          .execute(stdin:, stdout:, stderr:)
         do_after(opts)
       end
 

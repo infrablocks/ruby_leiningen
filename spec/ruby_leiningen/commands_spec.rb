@@ -3,7 +3,16 @@
 require 'spec_helper'
 
 describe RubyLeiningen::Commands do
+  let(:executor) { Lino::Executors::Mock.new }
+
+  before do
+    Lino.configure do |config|
+      config.executor = executor
+    end
+  end
+
   after do
+    Lino.reset!
     described_class.send(:remove_const, :Custom)
   end
 
@@ -13,13 +22,10 @@ describe RubyLeiningen::Commands do
 
       command = RubyLeiningen::Commands::Custom.new(binary: 'lein')
 
-      allow(Open4).to(receive(:spawn))
-
       command.execute
 
-      expect(Open4)
-        .to(have_received(:spawn)
-              .with('lein custom', any_args))
+      expect(executor.executions.first.command_line.string)
+        .to(eq('lein custom'))
     end
 
     it 'includes profile support by default' do
@@ -27,28 +33,23 @@ describe RubyLeiningen::Commands do
 
       command = RubyLeiningen::Commands::Custom.new(binary: 'lein')
 
-      allow(Open4).to(receive(:spawn))
-
       command.execute(profile: 'some-profile')
 
-      expect(Open4)
-        .to(have_received(:spawn)
-              .with('lein with-profile some-profile custom', any_args))
+      expect(executor.executions.first.command_line.string)
+        .to(eq('lein with-profile some-profile custom'))
     end
 
     it 'allows profile to be provided before execution' do
       described_class.define_custom_command('custom')
 
-      command = RubyLeiningen::Commands::Custom.new(binary: 'lein')
-                                               .for_profile('some-profile')
-
-      allow(Open4).to(receive(:spawn))
+      command = RubyLeiningen::Commands::Custom
+                .new(binary: 'lein')
+                .for_profile('some-profile')
 
       command.execute
 
-      expect(Open4)
-        .to(have_received(:spawn)
-              .with('lein with-profile some-profile custom', any_args))
+      expect(executor.executions.first.command_line.string)
+        .to(eq('lein with-profile some-profile custom'))
     end
 
     it 'does not include profile support when requested' do
@@ -57,13 +58,10 @@ describe RubyLeiningen::Commands do
 
       command = RubyLeiningen::Commands::Custom.new(binary: 'lein')
 
-      allow(Open4).to(receive(:spawn))
-
       command.execute(profile: 'some-profile')
 
-      expect(Open4)
-        .to(have_received(:spawn)
-              .with('lein custom', any_args))
+      expect(executor.executions.first.command_line.string)
+        .to(eq('lein custom'))
     end
 
     it 'allows command to be further configured via a block' do
@@ -77,13 +75,10 @@ describe RubyLeiningen::Commands do
 
       command = RubyLeiningen::Commands::Custom.new(binary: 'lein')
 
-      allow(Open4).to(receive(:spawn))
-
       command.execute(some_flag: true)
 
-      expect(Open4)
-        .to(have_received(:spawn)
-              .with('lein --some-flag custom thing', any_args))
+      expect(executor.executions.first.command_line.string)
+        .to(eq('lein --some-flag custom thing'))
     end
 
     it 'allows subcommand to be further configured via a block' do
@@ -103,13 +98,10 @@ describe RubyLeiningen::Commands do
 
       command = RubyLeiningen::Commands::Custom.new(binary: 'lein')
 
-      allow(Open4).to(receive(:spawn))
-
       command.execute(some_flag: true)
 
-      expect(Open4)
-        .to(have_received(:spawn)
-              .with('lein custom --some-flag', any_args))
+      expect(executor.executions.first.command_line.string)
+        .to(eq('lein custom --some-flag'))
     end
   end
 end

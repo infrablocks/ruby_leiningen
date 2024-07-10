@@ -15,9 +15,9 @@ require_relative 'commands/version'
 module RubyLeiningen
   module Commands
     class << self
-      def define_custom_command(name, options = {}, &config_block)
+      def define_custom_command(name, options = {}, &)
         klass_name = name.classify
-        klass = define_command_class(name, options, &config_block)
+        klass = define_command_class(name, options, &)
         const_set(klass_name, klass)
 
         return if options[:skip_singleton_method]
