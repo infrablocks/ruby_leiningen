@@ -13,8 +13,8 @@ module RubyLeiningen
       include Mixins::Environment
 
       # rubocop:disable Style/RedundantAssignment
-      def configure_command(builder, opts)
-        builder = super(builder, opts)
+      def configure_command(initial_builder, opts)
+        builder = super
         builder = builder.with_subcommand('run') do |sub|
           sub = with_main_function(sub, opts[:main_function])
           sub = with_quote_arguments(sub, opts[:quote_arguments])

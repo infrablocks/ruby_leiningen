@@ -11,10 +11,12 @@ describe RubyLeiningen::Commands do
     end
   end
 
+  # rubocop:disable RSpec/RemoveConst
   after do
     Lino.reset!
     described_class.send(:remove_const, :Custom)
   end
+  # rubocop:enable RSpec/RemoveConst
 
   describe '#define_custom_command' do
     it 'creates a command in the Commands module' do

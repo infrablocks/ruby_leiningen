@@ -5,7 +5,7 @@ module RubyLeiningen
     module Mixins
       module Environment
         def initialize(opts = {})
-          super(opts)
+          super
           @environment = opts[:environment]
         end
 
@@ -14,8 +14,8 @@ module RubyLeiningen
           self
         end
 
-        def configure_command(builder, opts)
-          builder = super(builder, opts)
+        def configure_command(initial_builder, opts)
+          builder = super
           environment = opts[:environment] || @environment
           if environment
             builder = environment.to_a

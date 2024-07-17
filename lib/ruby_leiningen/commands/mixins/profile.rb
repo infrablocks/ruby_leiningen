@@ -5,7 +5,7 @@ module RubyLeiningen
     module Mixins
       module Profile
         def initialize(opts = {})
-          super(opts)
+          super
           @profile = opts[:profile]
         end
 
@@ -14,8 +14,8 @@ module RubyLeiningen
           self
         end
 
-        def configure_command(builder, opts)
-          builder = super(builder, opts)
+        def configure_command(initial_builder, opts)
+          builder = super
           profile = opts[:profile] || @profile
           if profile
             builder = builder

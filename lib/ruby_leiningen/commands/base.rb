@@ -23,12 +23,22 @@ module RubyLeiningen
         $stderr
       end
 
-      def execute(opts = {})
-        do_before(opts)
-        configure_command(instantiate_builder, opts)
-          .build
-          .execute(stdin:, stdout:, stderr:)
-        do_after(opts)
+      def execute(parameters = {})
+        parameters = resolve_parameters(parameters)
+
+        do_before(parameters)
+        result = build_and_execute_command(parameters)
+        do_after(parameters)
+
+        result
+      end
+
+      private
+
+      def build_and_execute_command(parameters)
+        command = configure_command(instantiate_builder, parameters).build
+
+        command.execute(stdin:, stdout:, stderr:)
       end
 
       def instantiate_builder
@@ -36,13 +46,27 @@ module RubyLeiningen
           .for_command(binary)
       end
 
-      def do_before(opts); end
+      def do_before(_); end
 
-      def configure_command(builder, _opts)
+      def configure_command(builder, _parameters)
         builder
       end
 
-      def do_after(opts); end
+      def do_after(_); end
+
+      def resolve_parameters(parameters)
+        parameter_defaults(parameters)
+          .merge(parameters)
+          .merge(parameter_overrides(parameters))
+      end
+
+      def parameter_defaults(_parameters)
+        {}
+      end
+
+      def parameter_overrides(_parameters)
+        {}
+      end
     end
   end
 end

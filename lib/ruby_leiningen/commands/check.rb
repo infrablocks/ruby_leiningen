@@ -12,8 +12,8 @@ module RubyLeiningen
       include Mixins::Profile
       include Mixins::Environment
 
-      def configure_command(builder, opts)
-        builder = super(builder, opts)
+      def configure_command(initial_builder, opts)
+        builder = super
         builder.with_subcommand('check')
       end
     end
