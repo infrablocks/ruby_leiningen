@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 3.1'
 
-  spec.add_dependency 'activesupport', '>= 6.0.2', '< 8'
+  spec.add_dependency 'activesupport', '>= 6.0.2', '< 9'
   spec.add_dependency 'lino', '>= 4.1'
 
   spec.add_development_dependency 'bundler'
